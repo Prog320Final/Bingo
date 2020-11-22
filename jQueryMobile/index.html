@@ -16,7 +16,7 @@
 
  <body>
 
-<div data-role="page" id="Home">
+<div data-role="page" id="Home"><!-- home page -->
 
    <div data-role="header" data-theme='b'> 
       <h1>Find Your New Best Friend!</h1>
@@ -27,7 +27,7 @@
                <li><a href="#Search" data-icon="search">Search</a> </li>
                
          </ul>
-      </div><!-- /navbar -->
+      </div><!-- end of /navbar -->
    </div>
 
    <div data-role="content" data-theme='c'>
@@ -50,7 +50,7 @@
 
 </div>
 
-<div data-role="page" id="Search">
+<div data-role="page" id="Search"><!-- search page -->
 
    <div data-role="header" data-theme='b'> 
       <h1>Find Your New Best Friend!</h1>
@@ -60,11 +60,11 @@
                <li><a href="#Home" data-icon="back">Log Out</a> </li>
                
          </ul>
-      </div><!-- /navbar -->
+      </div><!-- end of /navbar -->
    </div>
 
    <div data-role="content" data-theme='d'>
-             
+      <!-- filter -->
       <select id = "invItems">
          <option value ="filter">Filter</option>
          <option value="starFragchoice">Edit filter</option>
@@ -100,14 +100,15 @@
       <button id="starfragtype">Add!</button>
    </section>
 
+   <!-- card buttons -->
    <div class="bingo--buttons">
       <button id="nope"><i class="fa fa-remove"></i></button>
       <button id="love"><i class="fa fa-heart"></i></button>
    </div>
 </div>
 </div>
-<div class="bingo">
-   <div class="bingo--cards">
+<div class="bingo"></div>
+   <div class="bingo--cards"><!-- card stack -->
 
      <div class="bingo--card">
      
@@ -150,21 +151,16 @@
           Breed: Pit Bull<br>
           Location: Redmond</p>
           </div>
-     </div>
-   </div>
+         </div>
 
-   <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
+   <script src='https://hammerjs.github.io/dist/hammer.min.js'></script><!-- hammer resource for swiping -->
    <script  src="main.js"></script>
-
-
-      <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
-      <script  src="main.js"></script>
    
    <div data-role="footer" data-theme='b'>
       <h1>Copywrite Bingo 2020</h1>
    </div>
 
-<div data-role="page" id="SignIn">
+<div data-role="page" id="SignIn"><!-- sign in page -->
 
    <div data-role="header" data-theme='b'> 
       <h1>Find Your New Best Friend!</h1>
@@ -173,7 +169,7 @@
                <li><a href="#Home" data-icon="back">Back</a> </li>
                
          </ul>
-      </div><!-- /navbar -->
+      </div><!-- end of /navbar -->
    </div>
 
    <div data-role="content" data-theme='c'>
@@ -193,7 +189,7 @@
 </div>
 
 
-<div data-role="page" id="Create">
+<div data-role="page" id="Create"><!-- create account page -->
 
    <div data-role="header" data-theme='b'> 
       <h1>Find Your New Best Friend!</h1>
@@ -202,7 +198,7 @@
                <li><a href="#Home" data-icon="back">Back</a> </li>
                
          </ul>
-      </div><!-- /navbar -->
+      </div><!-- end of /navbar -->
    </div>
 
 
@@ -224,7 +220,7 @@
 
 </div>
 
-<div data-role="page" id="Edit">
+<div data-role="page" id="Edit"><!-- edit profile page -->
 
    <div data-role="header" data-theme='b'> 
       <h1>Find Your New Best Friend!</h1>
@@ -234,7 +230,7 @@
                <li><a href="#Home" data-icon="back">Log Out</a> </li>
                
          </ul>
-      </div><!-- /navbar -->
+      </div><!-- end of /navbar -->
    </div>
 
    
@@ -253,32 +249,6 @@
    <h1>Copywrite Bingo 2020</h1>
 </div>
 
-</div>
-
-
-  <div data-role="page" id="MyRunningSchedule">
-
-         <div data-role="header" data-theme='b'> 
-         <h1>My Personal Records</h1>
-            <div data-role="navbar">
-                  <ul>
-                     <li><a href="#Home" data-icon="home">Home Page</a></li>
-                     <li><a href="#AddRun" data-icon="plus">Add New Run</a> </li>
-                     <li><a href="#View" data-icon="bars">View My Runs</a> </li>
-                     <li><a href="#MyPersonalRecords" data-icon="star">My Personal Records</a> </li></ul>
-                                  
-               </div><!-- /navbar -->
-         </div>
-     
-   <div data-role="content" data-theme='c'>
-      <h2>My Running Schedule 📅</h2>
-      <div>
-         Interactive calendar for user to input running schedule (choose dates on a monthly calendar)
-   </div>
-</div>
-   <div data-role="footer" data-theme='b'>
-       <h1>Copywrite Bingo 2020</h1>
-   </div>
 </div>
 </body>
  </html> 
