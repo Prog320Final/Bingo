@@ -1,5 +1,5 @@
 {
-  "name": "bingo-final-proj",
+  "name": "bingo",
   "private": true,
   "version": "0.0.0",
   "description": "a Sails application",
@@ -26,9 +26,9 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sam/bingo-final-proj.git"
+    "url": "git://github.com/anonymous node/sails user/bingo.git"
   },
-  "author": "sam",
+  "author": "anonymous node/sails user",
   "license": "",
   "engines": {
     "node": "^12.18"

@@ -1,4 +1,4 @@
-# bingo-final-proj
+# bingo
 
 a [Sails v1](https://sailsjs.com) application
 
@@ -14,7 +14,7 @@ a [Sails v1](https://sailsjs.com) application
 
 ### Version info
 
-This app was originally generated on Sat Nov 21 2020 21:21:49 GMT-0800 (Pacific Standard Time) using Sails v1.4.0.
+This app was originally generated on Sat Nov 21 2020 18:49:46 GMT-0800 (Pacific Standard Time) using Sails v1.4.0.
 
 <!-- Internally, Sails used [`sails-generate@2.0.0`](https://github.com/balderdashy/sails-generate/tree/v2.0.0/lib/core-generators/new). -->
 
