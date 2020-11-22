@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <!-- for azure:  all these links must use https, not http -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8"> 
+  <title>Bingo </title>
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css"/>
+  <script src="https://code.jquery.com/jquery-1.8.2.min.js"> </script>
+  <script src="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+  <script src="javascripts/main.js"></script>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+     <link rel="stylesheet" href="style.css">
+
+ </head>
+
+ <body>
+
+<div data-role="page" id="Home">
+
+   <div data-role="header" data-theme='b'> 
+      <h1>Find Your New Best Friend!</h1>
+      <div data-role="navbar">
+         <ul>
+               <li><a href="#SignIn" data-icon="star">Sign In</a> </li>
+               <li><a href="#Create" data-icon="plus">Create Account</a> </li>
+               <li><a href="#Search" data-icon="search">Search</a> </li>
+               
+         </ul>
+      </div><!-- /navbar -->
+   </div>
+
+   <div data-role="content" data-theme='c'>
+      <div class= "center-wrapper">
+         <br><br> 
+      <h2>Bingo 🐾</h2>
+      <div><br><br>
+          Looking for a new best pal to add to your family? <br>Search for fuzzy friends in your area and find information
+          quickly and easily!
+          <br><br><br>
+          <img src="images-removebg-preview.png">
+      </div>
+    </div>
+   </div>
+   <br>
+
+   <div data-role="footer" data-theme='b'>
+      <h1>Copywrite Bingo 2020</h1>
+   </div>
+
+</div>
+
+<div data-role="page" id="Search">
+
+   <div data-role="header" data-theme='b'> 
+      <h1>Find Your New Best Friend!</h1>
+      <div data-role="navbar">
+         <ul>
+               <li><a href="#Edit" data-icon="gear">Edit Profile</a> </li>
+               <li><a href="#Home" data-icon="back">Log Out</a> </li>
+               
+         </ul>
+      </div><!-- /navbar -->
+   </div>
+
+   <div data-role="content" data-theme='d'>
+             
+      <select id = "invItems">
+         <option value ="filter">Filter</option>
+         <option value="starFragchoice">Edit filter</option>
+
+      </select>
+      <section id=starfrags>
+         <select id="starfragtype">
+            <option value="Star Fragment">Breed 1</option>
+            <option value="Large Star Fragment">Breed 1</option>
+            <option value="Aquarius Fragment">Breed 1</option>
+            <option value="Pisces Fragment">Breed 1</option>
+            <option value="Tarus Fragment">Breed 1</option>
+      </select>
+      
+
+         <select id="starfragtype">
+            <option value="Age">Age</option>
+            <option value="Wood">Baby</option>
+            <option value="Soft Wood">Young</option>
+            <option value="Soft Wood">Adult</option>
+            <option value="Soft Wood">Senior</option>
+            
+      </select>
+
+
+      <select id="starfragtype">
+         <option value = "location">Location</option>
+         <option value="Bamboo">Seattle</option>
+         <option value="Bamboo Shoot">Renton</option>
+         <option value="Spring Bamboo">Bellevue</option>
+         <option value="Spring Bamboo">Bellevue</option>
+      </select>
+      <button id="starfragtype">Add!</button>
+   </section>
+
+   <div class="bingo--buttons">
+      <button id="nope"><i class="fa fa-remove"></i></button>
+      <button id="love"><i class="fa fa-heart"></i></button>
+   </div>
+</div>
+</div>
+<div class="bingo">
+   <div class="bingo--cards">
+
+     <div class="bingo--card">
+     
+       <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
+       <h3>Molly</h3>
+       <p>Age: 2 years<br>
+          Gender: Female<br>
+          Breed: Corgi<br>
+          Location: Seattle</p>
+     </div>
+     <div class="bingo--card">
+       <img src="https://www.washingtonpost.com/resizer/uwlkeOwC_3JqSUXeH8ZP81cHx3I=/arc-anglerfish-washpost-prod-washpost/public/HB4AT3D3IMI6TMPTWIZ74WAR54.jpg">
+       <h3>Piper</h3>
+       <p>Age: 8 years<br>
+          Gender: Male<br>
+          Breed: Mixed<br>
+          Location: Seattle</p>
+     </div>
+     <div class="bingo--card">
+       <img src="https://www.cesarsway.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-31-at-2.11.21-PM.png">
+       <h3>Woody</h3>
+       <p>Age: 12 years<br>
+          Gender: Male<br>
+          Breed: Golden Retriever<br>
+          Location: Bellevue</p>
+     </div>
+     <div class="bingo--card">
+       <img src="https://media1.popsugar-assets.com/files/thumbor/QYcQ17h-c7xh-evZHmaGSGI1l-U/0x159:2003x2162/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/08/07/875/n/24155406/9ffb00255d4b2e079b0b23.01360060_/i/Cute-Pictures-German-Shepherd-Puppies.jpg">
+       <h3>Lily</h3>
+       <p>Age: 12 weeks<br>
+          Gender: Female<br>
+          Breed: German Shepherd<br>
+          Location: Bellevue</p>
+     </div>
+     <div class="bingo--card">
+       <img src="https://www.pitbullinfo.org/uploads/7/8/9/7/7897520/pitbull-dog-1_3.jpg">
+       <h3>Buddy</h3> 
+       <p>Age: 3 years<br> 
+          Gender: Male<br>
+          Breed: Pit Bull<br>
+          Location: Redmond</p>
+          </div>
+     </div>
+   </div>
+
+   <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
+   <script  src="main.js"></script>
+
+
+      <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
+      <script  src="main.js"></script>
+   
+   <div data-role="footer" data-theme='b'>
+      <h1>Copywrite Bingo 2020</h1>
+   </div>
+
+<div data-role="page" id="SignIn">
+
+   <div data-role="header" data-theme='b'> 
+      <h1>Find Your New Best Friend!</h1>
+      <div data-role="navbar">
+         <ul>
+               <li><a href="#Home" data-icon="back">Back</a> </li>
+               
+         </ul>
+      </div><!-- /navbar -->
+   </div>
+
+   <div data-role="content" data-theme='c'>
+      <div class= "center-wrapper">
+         <br><br> 
+      <h2>Sign In</h2>
+      <div>
+      </div>
+    </div>
+   </div>
+   <br>
+
+   <div data-role="footer" data-theme='b'>
+      <h1>Copywrite Bingo 2020</h1>
+   </div>
+
+</div>
+
+
+<div data-role="page" id="Create">
+
+   <div data-role="header" data-theme='b'> 
+      <h1>Find Your New Best Friend!</h1>
+      <div data-role="navbar">
+         <ul>
+               <li><a href="#Home" data-icon="back">Back</a> </li>
+               
+         </ul>
+      </div><!-- /navbar -->
+   </div>
+
+
+<div data-role="content" data-theme='c'>
+   <div class= "center-wrapper">
+      <br><br> 
+   <h2>Create Account</h2>
+   <div>
+      <br><br><br>
+      <img src="puppypic2.png">
+  </div>
+ </div>
+</div>
+<br>
+
+<div data-role="footer" data-theme='b'>
+   <h1>Copywrite Bingo 2020</h1>
+</div>
+
+</div>
+
+<div data-role="page" id="Edit">
+
+   <div data-role="header" data-theme='b'> 
+      <h1>Find Your New Best Friend!</h1>
+      <div data-role="navbar">
+         <ul>
+               <li><a href="#Search" data-icon="search">Search</a> </li>
+               <li><a href="#Home" data-icon="back">Log Out</a> </li>
+               
+         </ul>
+      </div><!-- /navbar -->
+   </div>
+
+   
+
+<div data-role="content" data-theme='c'>
+   <div class= "center-wrapper">
+      <br><br> 
+   <h2>Edit Profile</h2>
+   <div>
+   </div>
+ </div>
+</div>
+<br>
+
+<div data-role="footer" data-theme='b'>
+   <h1>Copywrite Bingo 2020</h1>
+</div>
+
+</div>
+
+
+  <div data-role="page" id="MyRunningSchedule">
+
+         <div data-role="header" data-theme='b'> 
+         <h1>My Personal Records</h1>
+            <div data-role="navbar">
+                  <ul>
+                     <li><a href="#Home" data-icon="home">Home Page</a></li>
+                     <li><a href="#AddRun" data-icon="plus">Add New Run</a> </li>
+                     <li><a href="#View" data-icon="bars">View My Runs</a> </li>
+                     <li><a href="#MyPersonalRecords" data-icon="star">My Personal Records</a> </li></ul>
+                                  
+               </div><!-- /navbar -->
+         </div>
+     
+   <div data-role="content" data-theme='c'>
+      <h2>My Running Schedule 📅</h2>
+      <div>
+         Interactive calendar for user to input running schedule (choose dates on a monthly calendar)
+   </div>
+</div>
+   <div data-role="footer" data-theme='b'>
+       <h1>Copywrite Bingo 2020</h1>
+   </div>
+</div>
+</body>
+ </html> 
