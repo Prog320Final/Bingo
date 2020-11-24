@@ -138,11 +138,26 @@
          </div>
 
          <div class="bingo--cards">
+
+            <% import { mydogs } from "../../assets/js/script.js"; %>
+            <% myDogs.forEach(element => { %>
+               <div class="bingo--card">
+                 <img
+                 src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
+                 <h3 class="dogName"><%= myDogs.Name %></h3>
+                 <p class="dogID" style="display: none;"><%= myDogs.Id %>></p>
+                 <p class="dogDetails"><%= myDogs.Age %></p><br />
+                 <p class="dogDetails"><%= myDogs.Gender %></p><br />
+                 <p class="dogDetails"><%= myDogs.Breed %></p><br />
+                 <p class="dogDetails"><%= myDogs.Location %></p><br />
+               </div>
+              <% }) %>
+           
             <div class="bingo--card">
                <img
                   src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
                <h3>Molly</h3>
-               <p>Age: 2 years<br>
+                  Age: 8 years<rb>
                   Gender: Female<br>
                   Breed: Corgi<br>
                   Location: Seattle</p>
@@ -218,6 +233,7 @@
          </div>
 
       </div>
+      <script type="module" src="script.js"></script>
 
       <script src="main.js"></script>
 </body>

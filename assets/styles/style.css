@@ -139,3 +139,7 @@
   .fa-remove {
     color: #CDD6DD;
   }
+
+  #dogID {
+    display: none;
+  }
