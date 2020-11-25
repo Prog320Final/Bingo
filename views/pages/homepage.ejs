@@ -1,4 +1,244 @@
-<div class="default-page">
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Bingo</title>
+   <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+
+   <script src="https://code.jquery.com/jquery-1.8.2.min.js"> </script>
+   <script src="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+   <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+   <link rel="stylesheet" type="text/css" href="../../assets/styles/style.css"/>
+
+
+</head>
+
+<body>
+   <div data-role="page" id="Home">
+
+      <div data-role="header" data-theme='b'>
+         <h1>Bingo</h1>
+         <div data-role="navbar">
+            <ul>
+               <li><a href="#Show" data-icon="star">Search for Dogs</a> </li>
+               <li><a href="#AddDelete" data-icon="plus">Find Dogs</a> </li>
+               <li><a href="#Show" data-icon="star">Your Profile</a> </li>
+            </ul>
+         </div><!-- /navbar -->
+      </div>
+
+      <div data-role="content" data-theme='c'>
+
+      </div>
+
+      <div data-role="footer" data-theme='b'>
+         <h1>Team Bingo 2020</h1>
+      </div>
+
+   </div>
+   //*********************************************************
+   //*********************************************************
+   <div data-role="page" id="Show">
+
+      <div data-role="header" data-theme='b'>
+         <h1>Bingo</h1>
+         <div data-role="navbar">
+            <ul>
+               <li><a href="#Show" data-icon="star">Search for Dogs</a> </li>
+               <li><a href="#AddDelete" data-icon="plus">Saved Dogs</a> </li>
+            </ul>
+         </div><!-- /navbar -->
+      </div>
+
+      <div data-role="content" data-theme='c'>
+         <h2>My Inventory</h2>
+         <div>
+            <ul id="listUl">
+
+            </ul>
+
+            <input type="button" onclick="location.href='#Details'" value="Sell" />
+
+
+         </div>
+      </div>
+
+      <div data-role="footer" data-theme='b'>
+         <h1>Team Bingo 2020</h1>
+      </div>
+
+   </div>
+
+   <div data-role="page" id="AddDelete">
+
+      <div data-role="header" data-theme='b'>
+         <h1>Bingo</h1>
+         <div data-role="navbar">
+            <ul>
+               <li><a href="#Home" data-icon="home">Look for Pets</a></li>
+               <li><a href="#Details" data-icon="star">Saved Pet List</a> </li>
+               <li><a href="#Show" data-icon="star">Your Profile</a> </li>
+            </ul>
+         </div><!-- /navbar -->
+      </div>
+
+
+      <div data-role="content" data-theme='d'>
+
+         <select id="invItems">
+            <option value="filter">Filter</option>
+            <option value="starFragchoice">Edit filter</option>
+
+         </select>
+         <!-- Tester Menus -->
+         <section id=starfrags>
+            <select id="starfragtype">
+               <option value="Breed1">Breed 1</option>
+               <option value="Breed2">Breed 2</option>
+               <option value="Breed3">Breed 3</option>
+               <option value="Breed4">Breed 4</option>
+               <option value="Breed5">Breed 5</option>
+            </select>
+
+            <!-- Tester Menus -->
+            <select id="starfragtype">
+               <option value="Age">Age</option>
+               <option value="Baby">Baby</option>
+               <option value="Young">Young</option>
+               <option value="Adult">Adult</option>
+               <option value="Senior">Senior</option>
+
+            </select>
+
+            <!-- Tester Menus -->
+            <select id="starfragtype">
+               <option value="location">Location</option>
+               <option value="Bamboo">Seattle</option>
+               <option value="Bamboo Shoot">Renton</option>
+               <option value="Spring Bamboo">Bellevue</option>
+               <option value="Spring Bamboo">Bellevue</option>
+            </select>
+            <button id="starfragtype">Add!</button>
+      </div>
+      <!-- Stephanie's tester card, needs to be put in the same view div in order to be put on a specific area-->
+      <div class="bingo">
+         <div class="bingo--status">
+            <i class="fa fa-remove"></i>
+            <i class="fa fa-heart"></i>
+         </div>
+         <!-- Yes or no buttons. data-inline allows the buttons to be displayed side by side, buttons are on top for now because the card does not size properly -->
+         <div class="bingo--buttons">
+            <button id="nope" data-role="button" data-inline="true"><i class="fa fa-remove"></i></button>
+            <button id="love" data-role="button" data-inline="true"><i class="fa fa-heart"></i></button>
+         </div>
+
+         <div class="bingo--cards">
+
+            <% import { mydogs } from "../../assets/js/script.js"; %>
+            <% myDogs.forEach(element => { %>
+               <div class="bingo--card">
+                 <img
+                 src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
+                 <h3 class="dogName"><%= myDogs.Name %></h3>
+                 <p class="dogID" style="display: none;"><%= myDogs.Id %>></p>
+                 <p class="dogDetails"><%= myDogs.Age %></p><br />
+                 <p class="dogDetails"><%= myDogs.Gender %></p><br />
+                 <p class="dogDetails"><%= myDogs.Breed %></p><br />
+                 <p class="dogDetails"><%= myDogs.Location %></p><br />
+               </div>
+              <% }) %>
+           
+            <div class="bingo--card">
+               <img
+                  src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
+               <h3>Molly</h3>
+                  Age: 8 years<rb>
+                  Gender: Female<br>
+                  Breed: Corgi<br>
+                  Location: Seattle</p>
+            </div>
+            <div class="bingo--card">
+               <img
+                  src="https://www.washingtonpost.com/resizer/uwlkeOwC_3JqSUXeH8ZP81cHx3I=/arc-anglerfish-washpost-prod-washpost/public/HB4AT3D3IMI6TMPTWIZ74WAR54.jpg">
+               <h3>Piper</h3>
+               <p>Age: 8 years<br>
+                  Gender: Male<br>
+                  Breed: Mixed<br>
+                  Location: Seattle</p>
+            </div>
+            <div class="bingo--card">
+               <img src="https://www.cesarsway.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-31-at-2.11.21-PM.png">
+               <h3>Woody</h3>
+               <p>Age: 12 years<br>
+                  Gender: Male<br>
+                  Breed: Golden Retriever<br>
+                  Location: Bellevue</p>
+            </div>
+            <div class="bingo--card">
+               <img
+                  src="https://media1.popsugar-assets.com/files/thumbor/QYcQ17h-c7xh-evZHmaGSGI1l-U/0x159:2003x2162/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/08/07/875/n/24155406/9ffb00255d4b2e079b0b23.01360060_/i/Cute-Pictures-German-Shepherd-Puppies.jpg">
+               <h3>Lily</h3>
+               <p>Age: 12 weeks<br>
+                  Gender: Female<br>
+                  Breed: German Shepherd<br>
+                  Location: Bellevue</p>
+            </div>
+            <div class="bingo--card">
+               <img src="https://www.pitbullinfo.org/uploads/7/8/9/7/7897520/pitbull-dog-1_3.jpg">
+               <h3>Buddy</h3>
+               <p>Age: 3 years<br>
+                  Gender: Male<br>
+                  Breed: Pit Bull<br>
+                  Location: Redmond</p>
+            </div>
+            <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
+         </div>
+
+         <div data-role="footer" data-theme='b'>
+            <h1>Team Bingo 2020</h1>
+         </div>
+
+      </div>
+
+
+
+      <!--Profile, will display a list of user picked dogs-->
+      <div data-role="page" id="Details">
+
+         <div data-role="header" data-theme='b'>
+            <h1>Bingo</h1>
+            <div data-role="navbar">
+               <ul>
+                  <li><a href="#Show" data-icon="star">Search for Dogs</a> </li>
+                  <li><a href="#AddDelete" data-icon="plus">Saved Dogs</a> </li>
+               </ul>
+            </div><!-- /navbar -->
+         </div>
+
+         <div data-role="content" data-theme='d'>
+            <div>
+
+            </div>
+
+
+         </div>
+
+         <div data-role="footer" data-theme='b'>
+            <h1>Team Bingo 2020</h1>
+         </div>
+
+      </div>
+      <script type="module" src="script.js"></script>
+
+      <script src="main.js"></script>
+</body>
+
+</html><div class="default-page">
   <div class="header">
     <h1>Bingo</h1>
   </div>
