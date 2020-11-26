@@ -4,8 +4,9 @@ window.onload = () => {
   
     let bearer; // global variable stores bearer access token to use in requests
     let json_dogs_array; // global array to store json data from requests
+
     let myDogs = []; // global array to store dog objects parsed from json requests
-  
+
     // dog class object to parse relevant information
     class Dog {
         constructor(name, id, age, gender, primaryBreed, secondaryBreed){
@@ -129,7 +130,7 @@ window.onload = () => {
         // adds dogs to the list on the page
         showDogsOnPage();
     }
-  
+
     // function to add values to a list element on the page
     const addToList = {
         appendToList: (list, value) => {
@@ -147,9 +148,7 @@ window.onload = () => {
             addToList.appendToList(myList, listDog); // appends the value to the element
         }
     }
-  
-    
-  
+
     // placeholder main function
     getAccessToken();
     getDogList();
