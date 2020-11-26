@@ -6,8 +6,6 @@ window.onload = () => {
     let json_dogs_array; // global array to store json data from requests
 
     let myDogs = []; // global array to store dog objects parsed from json requests
-  
-
 
     // dog class object to parse relevant information
     class Dog {
