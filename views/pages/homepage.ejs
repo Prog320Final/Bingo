@@ -4,11 +4,15 @@
 <head>
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Bingo</title>
+   
+   <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+   <link rel="stylesheet" href="style.css" />
    <script src="https://code.jquery.com/jquery-1.8.2.min.js"> </script>
    <script src="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+   <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -19,8 +23,7 @@
          <h1>Bingo</h1>
          <div data-role="navbar">
             <ul>
-               <li><a href="#Show" data-icon="star">Search for Dogs</a> </li>
-               <li><a href="#AddDelete" data-icon="plus">Find Dogs</a> </li>
+               <li><a href="#Details" data-icon="star">Search for Dogs</a> </li>
                <li><a href="#Show" data-icon="star">Your Profile</a> </li>
             </ul>
          </div><!-- /navbar -->
@@ -50,13 +53,12 @@
       </div>
 
       <div data-role="content" data-theme='c'>
-         <h2>My Inventory</h2>
+         <h2>Saved Dogs</h2>
          <div>
             <ul id="listUl">
 
             </ul>
 
-            <input type="button" onclick="location.href='#Details'" value="Sell" />
 
 
          </div>
@@ -67,16 +69,16 @@
       </div>
 
    </div>
-
+   //*********************************************************
+   //*********************************************************
    <div data-role="page" id="AddDelete">
 
       <div data-role="header" data-theme='b'>
          <h1>Bingo</h1>
          <div data-role="navbar">
             <ul>
-               <li><a href="#Home" data-icon="home">Look for Pets</a></li>
                <li><a href="#Details" data-icon="star">Saved Pet List</a> </li>
-               <li><a href="#Show" data-icon="star">Your Profile</a> </li>
+               <li><a href="#Home" data-icon="home">Home Page</a> </li>
             </ul>
          </div><!-- /navbar -->
       </div>
@@ -86,12 +88,12 @@
 
          <select id="invItems">
             <option value="filter">Filter</option>
-            <option value="starFragchoice">Edit filter</option>
+            <option value="edit">Edit filter</option>
 
          </select>
          <!-- Tester Menus -->
          <section id=starfrags>
-            <select id="starfragtype">
+            <select id="breeds">
                <option value="Breed1">Breed 1</option>
                <option value="Breed2">Breed 2</option>
                <option value="Breed3">Breed 3</option>
@@ -100,8 +102,8 @@
             </select>
 
             <!-- Tester Menus -->
-            <select id="starfragtype">
-               <option value="Age">Age</option>
+            <select id="age">
+               <option value="ages">Age</option>
                <option value="Baby">Baby</option>
                <option value="Young">Young</option>
                <option value="Adult">Adult</option>
@@ -110,14 +112,14 @@
             </select>
 
             <!-- Tester Menus -->
-            <select id="starfragtype">
-               <option value="location">Location</option>
-               <option value="Bamboo">Seattle</option>
-               <option value="Bamboo Shoot">Renton</option>
-               <option value="Spring Bamboo">Bellevue</option>
-               <option value="Spring Bamboo">Bellevue</option>
+            <select id="location">
+               <option value="city">Location</option>
+               <option value="98105">Seattle</option>
+               <option value="98058">Renton</option>
+               <option value="98006">Bellevue</option>
+               <option value="98501">Olympia</option>
             </select>
-            <button id="starfragtype">Add!</button>
+            <button id="apply">Apply Filters</button>
       </div>
       <!-- Stephanie's tester card, needs to be put in the same view div in order to be put on a specific area-->
       <div class="bingo">
@@ -132,15 +134,29 @@
          </div>
 
          <div class="bingo--cards">
+
+            <% import { mydogs } from "../../assets/js/script.js"; %>
+            <% myDogs.forEach(element => { %>
+               <div class="bingo--card">
+                 <img
+                 src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
+                 <h3 class="dogName"><%= myDogs.Name %></h3>
+                 <p class="dogID" style="display: none;"><%= myDogs.Id %>></p>
+                 <p class="dogDetails"><%= myDogs.Age %></p><br />
+                 <p class="dogDetails"><%= myDogs.Gender %></p><br />
+                 <p class="dogDetails"><%= myDogs.Breed %></p><br />
+                 <p class="dogDetails"><%= myDogs.Location %></p><br />
+               </div>
+              <% }) %>
+           
             <div class="bingo--card">
                <img
                   src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
                <h3>Molly</h3>
-               <p>Age: 2 years<br>
+                  Age: 8 years<rb>
                   Gender: Female<br>
                   Breed: Corgi<br>
                   Location: Seattle</p>
-               <p id = "dogId">1234567890</p>
             </div>
             <div class="bingo--card">
                <img
@@ -201,9 +217,6 @@
          </div>
 
          <div data-role="content" data-theme='d'>
-            <div>
-
-            </div>
 
 
          </div>
@@ -213,18 +226,9 @@
          </div>
 
       </div>
+      <script type="module" src="script.js"></script>
 
       <script src="main.js"></script>
 </body>
 
-</html><div class="default-page">
-  <div class="header">
-    <h1>Bingo</h1>
-  </div>
-  <div class="main container clearfix">
-
-    <p>Dog List</p>
-    <ul id="dogList"></ul>
-
-  </div>
-</div>
+</html>
