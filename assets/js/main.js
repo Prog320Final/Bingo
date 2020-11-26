@@ -1,3 +1,6 @@
+var listId = 1;
+var savedPets = [];
+
 
 // Now comes the code that must wait to run until the document is fully loaded
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -13,7 +16,40 @@ document.addEventListener("DOMContentLoaded", function (event) {
       document.getElementById("starfrags").style.display = "block";
     }
   });
+  document.getElementById("love").addEventListener("click", function(){
+    var selectedDog = document.getElementById("dogId");
+    for (i =0; i< myDogs.length;i++){
+      if(selectedDog === myDogs[i].ID){
+        savedPets.add(myDogs[i]);
+        break;
+      }
+      };
+      
+    savedPets.push(new Item(selectedDog));
+    listId++;
+  });
 
+  document.getElementById("buttonDelete").addEventListener("click", function () {
+
+    var ID = document.getElementById("deleteID").value;
+    $.ajax({
+      type: "DELETE",
+      url: "/DeleteItem/" + ID,
+      success: function (result) {
+        console.log(result);
+        document.location.href = "index.html#Show";  // go to this page to show item was deleted
+      },
+      error: function (xhr, textStatus, errorThrown) {
+        console.log('Error in Operation');
+        alert("Server could not delete Note with ID " + ID)
+      }
+    });
+
+  });
+  $(document).on('pagebeforeshow', '#Show', function () {
+    UpdateDisplay();
+  }
+  );
 
 
 
