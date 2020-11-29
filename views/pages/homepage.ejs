@@ -138,22 +138,12 @@
          </div>
 
          <div class="bingo--cards">
+           <div class="bingo--card">
 
-            <% import { mydogs } from "../../assets/js/script.js"; %>
-            <% myDogs.forEach(element => { %>
-               <div class="bingo--card">
-                 <img
-                 src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
-                 <h3 class="dogName"><%= myDogs.Name %></h3>
-                 <p class="dogID" style="display: none;"><%= myDogs.Id %>></p>
-                 <p class="dogDetails"><%= myDogs.Age %></p><br />
-                 <p class="dogDetails"><%= myDogs.Gender %></p><br />
-                 <p class="dogDetails"><%= myDogs.Breed %></p><br />
-                 <p class="dogDetails"><%= myDogs.Location %></p><br />
-               </div>
-              <% }) %>
-           
-            <div class="bingo--card">
+           </div>
+            
+
+            <!-- <div class="bingo--card">
                <img
                   src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
                <h3>Molly</h3>
@@ -195,7 +185,7 @@
                   Gender: Male<br>
                   Breed: Pit Bull<br>
                   Location: Redmond</p>
-            </div>
+            </div> -->
             <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
          </div>
 
@@ -222,20 +212,16 @@
 
          <div data-role="content" data-theme='d'>
             <div>
-
             </div>
-
-
          </div>
-
          <div data-role="footer" data-theme='b'>
             <h1>Team Bingo 2020</h1>
          </div>
 
       </div>
-      <script type="module" src="script.js"></script>
 
-      <script src="main.js"></script>
+      <script type="module" src="js/script.js"></script>
+      <script type="module" src="js/main.js"></script>
 </body>
 
 </html><div class="default-page">
