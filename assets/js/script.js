@@ -96,37 +96,6 @@ window.onload = () => {
         showDogsOnPage();
     }
 
-
-    //creates a card with dog information
-    // const addToCard = {
-    //     appendToCard: (card) => {
-    //         const card = document.createElement("div");
-    //         card.setAttribute('class', 'bingo--card');
-    //         appendDetailsToCard: (name ,value) => {
-    //             const name = document.createElement("h3");
-    //             name.setAttribute('class', 'dogName');
-    //             name.appendChild(document.createTextNode(value));
-    //         }
-    //     }
-    // }
-
-    // function showDogsOnCard() {
-    //     for (let i = 0; i < myDogs.length; i++) {
-    //         let dogId = myDogs[i].id;
-    //         let dogName = myDogs[i].name;
-    //         let dogAge = myDogs[i].age;
-    //         let dogGender = myDogs[i].gender;
-    //         let dogBreed = myDogs[i].primaryBreed;
-
-
-
-    //         const dogCard = document.getElementById('bingo--cards');
-    //         addToCard.appendToCard(dogCard);
-    //     }
-    // }
-
-
-
     // function to add values to a list element on the page
     const addToList = {
         appendToList: (list, value) => {
