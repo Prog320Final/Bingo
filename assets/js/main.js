@@ -55,13 +55,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 });
 
-'use strict';
+// code from https://codepen.io/RobVermeer/pen/japZpY
+'use strict'; // code used in "strict mode"
 
+// grabs cards and buttons
 var bingoContainer = document.querySelector('.bingo');
 var allCards = document.querySelectorAll('.bingo--card');
 var nope = document.getElementById('nope');
 var love = document.getElementById('love');
 
+// create new card
 function initCards(card, index) {
   var newCards = document.querySelectorAll('.bingo--card:not(.removed)');
 
@@ -74,8 +77,10 @@ function initCards(card, index) {
   bingoContainer.classList.add('loaded');
 }
 
+// cards created
 initCards();
 
+// swiping function
 allCards.forEach(function (el) {
   var hammertime = new Hammer(el);
 
@@ -148,6 +153,10 @@ function createButtonListener(love) {
 }
 
 var nopeListener = createButtonListener(false);
+var loveListener = createButtonListener(true);
+
+nope.addEventListener('click', nopeListener);
+love.addEventListener('click', loveListener);
 var loveListener = createButtonListener(true);
 
 nope.addEventListener('click', nopeListener);
