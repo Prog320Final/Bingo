@@ -23,44 +23,21 @@
          <h1>Bingo</h1>
          <div data-role="navbar">
             <ul>
-               <li><a href="#Details" data-icon="star">Search for Dogs</a> </li>
-               <li><a href="#Show" data-icon="star">Your Profile</a> </li>
+               <li><a href="/" onclick="javascript:event.target.port=1337">Mahmmoud's Home Page</a></li>
+               <li><a href="#Search" data-icon="star">Search for Dogs</a> </li>
+               <li><a href="#Show" data-icon="star">Saved Dogs</a> </li>
             </ul>
          </div><!-- /navbar -->
       </div>
 
       <div data-role="content" data-theme='c'>
-
-      </div>
-
-      <div data-role="footer" data-theme='b'>
-         <h1>Team Bingo 2020</h1>
-      </div>
-
-   </div>
-   //*********************************************************
-   //*********************************************************
-   <div data-role="page" id="Show">
-
-      <div data-role="header" data-theme='b'>
-         <h1>Bingo</h1>
-         <div data-role="navbar">
-            <ul>
-               <li><a href="#Show" data-icon="star">Search for Dogs</a> </li>
-               <li><a href="#AddDelete" data-icon="plus">Saved Dogs</a> </li>
-            </ul>
-         </div><!-- /navbar -->
-      </div>
-
-      <div data-role="content" data-theme='c'>
-         <h2>Saved Dogs</h2>
-         <div>
-            <ul id="listUl">
-
-            </ul>
-
-
-
+         <div style="text-align:center;">
+            <h2>Bingo 🐾</h2>
+            <br><br>
+            Looking for a new best pal to add to your family? <br>Search for fuzzy friends in your area and find information
+            quickly and easily!
+            <br><br><br>
+            <img src="/images/images-removebg-preview.png">
          </div>
       </div>
 
@@ -69,16 +46,52 @@
       </div>
 
    </div>
-   //*********************************************************
-   //*********************************************************
-   <div data-role="page" id="AddDelete">
+
+
+   <div data-role="page" id="Show">
 
       <div data-role="header" data-theme='b'>
          <h1>Bingo</h1>
          <div data-role="navbar">
             <ul>
-               <li><a href="#Details" data-icon="star">Saved Pet List</a> </li>
-               <li><a href="#Home" data-icon="home">Home Page</a> </li>
+               <li><a href="#Home" data-icon="star">Home Page</a> </li>
+               <li><a href="#Search" data-icon="plus">Search for Dogs</a> </li>
+            </ul>
+         </div><!-- /navbar -->
+      </div>
+
+      <div data-role="content" data-theme='c'>
+         <div style="text-align:center">
+            <h2>Saved Dogs</h2>
+            Keep track of your saved dogs here! 
+            <br><br><br>
+            <ul data-role="listview">
+               <li><img src="/images/puppypic2.png"> Lola</li>
+               <br>
+               <li><img src="/images/images-removebg-preview.png"> Bear</li>
+               <br>
+               <li><img src="/images/pug.png"> Doug</li>
+               <br>
+            </ul>
+         </div>
+      </div>
+
+      <div data-role="footer" data-theme='b'>
+         <h1>Team Bingo 2020</h1>
+      </div>
+
+   </div>
+
+
+   
+   <div data-role="page" id="Search">
+
+      <div data-role="header" data-theme='b'>
+         <h1>Bingo</h1>
+         <div data-role="navbar">
+            <ul>
+               <li><a href="#Home" data-icon="star">Home Page</a> </li>
+               <li><a href="#Show" data-icon="home">Saved Dogs</a> </li>
             </ul>
          </div><!-- /navbar -->
       </div>
@@ -92,28 +105,36 @@
 
          </select>
          <!-- Tester Menus -->
-         <section id=starfrags>
+         <section id=editoptions>
             <select id="breeds">
-               <option value="Breed1">Breed 1</option>
-               <option value="Breed2">Breed 2</option>
-               <option value="Breed3">Breed 3</option>
-               <option value="Breed4">Breed 4</option>
-               <option value="Breed5">Breed 5</option>
+               <option value="">Breeds</option>
+               <!-- need to find exact parameter values for each breed -->
+               <option value="golden??">Golden Retriever</option>
+               <option value="husky??">Husky</option>
+               <option value="shiba??">Shiba Inu</option>
+               <option value="gsd??">German Shepard</option>
+               <option value="corgi??">Corgi</option>
             </select>
 
             <!-- Tester Menus -->
             <select id="age">
-               <option value="ages">Age</option>
+               <option value="">Age</option>
                <option value="Baby">Baby</option>
                <option value="Young">Young</option>
                <option value="Adult">Adult</option>
                <option value="Senior">Senior</option>
-
+            </select>
+            
+            <!-- Tester Menus -->
+            <select id="gender">
+               <option value="">Gender</option>
+               <option value="Male">Male</option>
+               <option value="Female">Female</option>
             </select>
 
             <!-- Tester Menus -->
             <select id="location">
-               <option value="city">Location</option>
+               <option value="">Location</option>
                <option value="98105">Seattle</option>
                <option value="98058">Renton</option>
                <option value="98006">Bellevue</option>
@@ -135,28 +156,13 @@
 
          <div class="bingo--cards">
 
-            <% import { mydogs } from "../../assets/js/script.js"; %>
-            <% myDogs.forEach(element => { %>
-               <div class="bingo--card">
-                 <img
-                 src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
-                 <h3 class="dogName"><%= myDogs.Name %></h3>
-                 <p class="dogID" style="display: none;"><%= myDogs.Id %>></p>
-                 <p class="dogDetails"><%= myDogs.Age %></p><br />
-                 <p class="dogDetails"><%= myDogs.Gender %></p><br />
-                 <p class="dogDetails"><%= myDogs.Breed %></p><br />
-                 <p class="dogDetails"><%= myDogs.Location %></p><br />
-               </div>
-              <% }) %>
-           
             <div class="bingo--card">
-               <img
-                  src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
-               <h3>Molly</h3>
-                  Age: 8 years<rb>
-                  Gender: Female<br>
-                  Breed: Corgi<br>
-                  Location: Seattle</p>
+               <img id="testPhoto" src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
+               <h3 id="testName">Molly</h3>
+               <ul id="testDisplaying">
+
+               </ul>
+
             </div>
             <div class="bingo--card">
                <img
@@ -201,34 +207,6 @@
 
       </div>
 
-
-
-      <!--Profile, will display a list of user picked dogs-->
-      <div data-role="page" id="Details">
-
-         <div data-role="header" data-theme='b'>
-            <h1>Bingo</h1>
-            <div data-role="navbar">
-               <ul>
-                  <li><a href="#Show" data-icon="star">Search for Dogs</a> </li>
-                  <li><a href="#AddDelete" data-icon="plus">Saved Dogs</a> </li>
-               </ul>
-            </div><!-- /navbar -->
-         </div>
-
-         <div data-role="content" data-theme='d'>
-
-
-         </div>
-
-         <div data-role="footer" data-theme='b'>
-            <h1>Team Bingo 2020</h1>
-         </div>
-
-      </div>
-      <script type="module" src="script.js"></script>
-
-      <script src="main.js"></script>
 </body>
 
 </html>
