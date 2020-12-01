@@ -161,8 +161,3 @@ love.addEventListener('click', loveListener);
 var loveListener = createButtonListener(true);
 
 nope.addEventListener('click', nopeListener);
-<<<<<<< HEAD
-love.addEventListener('click', loveListener);
-=======
-love.addEventListener('click', loveListener);
->>>>>>> ef8e297c7b044cb7e532cd8cef5e1dcc48128204
