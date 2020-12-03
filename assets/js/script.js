@@ -8,7 +8,7 @@ let json_dogs_array; // global array to store json data from requests
 let myDogs = []; // global array to store dog objects parsed from json requests
 let savedPets = [];
 
-let cardCounter = 0;
+let cardCounter = 0; // tracks the front dog card
 
 
 // dog class object to parse relevant information
@@ -77,6 +77,8 @@ async function getDogList() {
     };
 
     xhr.send(); // sends the request object
+
+    showDogs();
 }
 
 // function to GET list of dogs using user input search parameters
@@ -123,8 +125,8 @@ async function showDogs () {
     // resets card counter to track newly displayed dogs
     cardCounter = 0;
 
-    await sleep(5000);
-    myDogs = [];
+    await sleep(3000);
+    myDogs = []; // resets the array of dogs
 
     // loops through json data retrieved
     for (let i in json_dogs_array.animals) {
@@ -154,65 +156,48 @@ async function showDogs () {
     showDogsOnPage();
 }
 
-
-
-function testDisplay(index) {
+function dogCard(index) {
+    // grabs dog info from the indexed dog
     let dogName = myDogs[index].name;
+    let dogID = myDogs[index].id;
     let dogAge = myDogs[index].age;
     let dogGender = myDogs[index].gender;
     let dogBreed = myDogs[index].primaryBreed;
     let dogDistance = myDogs[index].distance;
     let dogPhoto = myDogs[index].photo;
 
-    let selectDiv = "card-" + index;
+    let selectDiv = 'card-' + index; // selects dog card to display info on
     console.log(selectDiv);
-    const myList = document.getElementById(selectDiv); // gets element id from the page
+    const currentCard = document.getElementById(selectDiv); // gets element id from the page
+    currentCard.innerHTML = ""; // clears the dog card before displaying info
 
-    addToCardPhoto.appendToImg(myList, dogPhoto);
-    addToCardName.appendToHeader(myList, dogName);
-
+    // appends dog photo and name to card
+    addToCardPhoto.appendToImg(currentCard, dogPhoto);
+    addToCardName.appendToHeader(currentCard, dogName);
+    //(currentCard, dogID) maybe add function to append hidden dogID
+    
+    // checks if dog is mixed breed then appends all dog info to the card
     if (myDogs[index].secondaryBreed != null) {
         let dogBreedSec = myDogs[index].secondaryBreed;
-        addToCardInfo.appendToList(myList, dogAge, dogGender, dogBreed, dogDistance, dogBreedSec); 
+        addToCardInfo.appendToList(currentCard, dogAge, dogGender, dogBreed, dogDistance, dogBreedSec); 
     }
-    else {
-        addToCardInfo.appendToList(myList, dogAge, dogGender, dogBreed, dogDistance);
-    }
+    else addToCardInfo.appendToList(currentCard, dogAge, dogGender, dogBreed, dogDistance);
 }
 
-// function to add values to a list element on the page
+// function to dynamically add dog info to a card
 const addToCardInfo = {
     appendToList: (card, age, gender, breed, distance, breedSec) => {
         const p = document.createElement('p');
         const br = document.createElement('br');
-        //const br = document.createElement('p');
-        p.setAttribute('style', 'margin-top: 24px; font-size: 20px; padding: 0 16px; pointer-events: none;')
         p.appendChild(document.createTextNode('Age: ' + age));
         p.appendChild(document.createElement('br'))
         p.appendChild(document.createTextNode('Gender: ' + gender));
         p.appendChild(document.createElement('br'))
-        if (breedSec != null) {
-            p.appendChild(document.createTextNode('Breeds: ' + breed + ', ' + breedSec));
-            //p.appendChild(document.createTextNode('Secondary Breed:' + breed));
-            //p.appendChild(document.createElement('br'))
-        }
-        else {
-            p.appendChild(document.createTextNode('Breed: ' + breed));
-
-        }
+        if (breedSec != null) p.appendChild(document.createTextNode('Breeds: ' + breed + ', ' + breedSec));
+        else p.appendChild(document.createTextNode('Breed: ' + breed));
         p.appendChild(document.createElement('br'))
         p.appendChild(document.createTextNode('Distance: ' + distance + ' miles away'));
         card.appendChild(p);
-    }
-}
-
-// function to create new dog card on the page
-const addNewCard = {
-    appendToDiv: (divID) => {
-        const card = document.createElement('div');
-        $(card).addClass('newbingo');
-        card.appendChild(document.createTextNode('test123'));
-        divID.appendChild(card);
     }
 }
 
@@ -226,49 +211,23 @@ const addToCardName = {
     }
 }
 
-// function to add the name of the dog in a h3 tag with class="name"
+// function to dynamically add the picutre of the dog in an img element
 const addToCardPhoto = {
     appendToImg: (photo, value) => {
         const img = document.createElement('img');
         img.src = value;
-        //img.appendChild(document.createTextNode(value));
         photo.appendChild(img);
     }
 }
 
+// function to dynamically create and display cards for each dog in the array
 function showDogsOnPage() {
-
-    //let listDogPhoto = myDogs[0].photo;
-    //let listDogUrl = myDogs[0].link;
-    //const myList2 = document.getElementById('testName');
-
-    //addToList.appendToList(myList, listDogPhoto);
-    //addToList.appendToList(myList, listDogUrl);
-    //const bingoArray = document.getElementsByClassName('bingo--cards');
-    
-    //let bingoDiv = bingoCards[0];
-
-    for (let i = 0; i < 5; i++) {
-        testDisplay(i);
+    for (let i = 0; i < myDogs.length; i++) {
+        dogCard(i);
     }
-
-    //addNewCard.appendToDiv(bingoDiv);
-
-    //const card = document.createElement('div');
-    //$(card).addClass('newbingo');
-    //$(card).addClass('bingo--card');
-    //card.setAttribute('class', 'bingo--card');
-    //card.setAttribute('style', 'touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);');
-    //card.style.userSelect = none;
-    //$(card)
-    //    .appendTo('.bingo--cards');
-    //const test123 = document.getElementsByClassName('bingo--card');
 }
 
-// placeholder main function
-getAccessToken();
-getDogList();
-showDogs();
+
 
 
 document.getElementById('apply').addEventListener('click', function () {
@@ -353,8 +312,6 @@ function initCards(card, index) {
     bingoContainer.classList.add('loaded');
 }
 
-initCards();
-
 allCards.forEach(function (el) {
     var hammertime = new Hammer(el);
 
@@ -416,8 +373,10 @@ function createButtonListener(love) {
 
     if (love) {
         card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
+        console.log('loved dog. saving to list');
     } else {
         card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
+        console.log('disliked dog.');
     }
 
     initCards();
@@ -431,33 +390,8 @@ var loveListener = createButtonListener(true);
 
 nope.addEventListener('click', nopeListener);
 love.addEventListener('click', loveListener);
-    
 
-// Select the node that will be observed for mutations
-// const targetNode = document.querySelector('.bingo--cards');
-
-// // Options for the observer (which mutations to observe)
-// const config = { attributes: true, childList: true, subtree: true };
-
-// // Callback function to execute when mutations are observed
-// const callback = function(mutationsList, observer) {
-//     // Use traditional 'for loops' for IE 11
-//     for(const mutation of mutationsList) {
-//         if (mutation.type === 'childList') {
-//             initCards();
-//             console.log('A child node has been added or removed.');
-//         }
-//         else if (mutation.type === 'attributes') {
-//             //console.log('The ' + mutation.attributeName + ' attribute was modified.');
-//         }
-//     }
-// };
-
-// // Create an observer instance linked to the callback function
-// const observer = new MutationObserver(callback);
-
-// // Start observing the target node for configured mutations
-// observer.observe(targetNode, config);
-
-// // Later, you can stop observing
-// //observer.disconnect();
+// placeholder main function
+getAccessToken();
+getDogList();
+initCards();
