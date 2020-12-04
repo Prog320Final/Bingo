@@ -8,6 +8,8 @@ let json_dogs_array; // global array to store json data from requests
 let myDogs = []; // global array to store dog objects parsed from json requests
 let savedPets = [];
 
+let cardCounter = 0; // tracks the front dog card
+
 
 // dog class object to parse relevant information
 class Dog {
@@ -75,6 +77,8 @@ async function getDogList() {
     };
 
     xhr.send(); // sends the request object
+
+    showDogs();
 }
 
 // function to GET list of dogs using user input search parameters
@@ -97,6 +101,8 @@ async function searchDogs(age, breed, gender, location) {
     
     url = url + breedSearch + genderSearch + ageSearch + locationSearch;
 
+    console.log(url);
+
     let xhr = new XMLHttpRequest(); // object to send requests
     xhr.open("GET", url); // request method
     let token = await accesstoken(); // access token required to send requests
@@ -109,31 +115,40 @@ async function searchDogs(age, breed, gender, location) {
         }
     };
     xhr.send(); // sends the request object
+
+    showDogs();
 }
 
 // function to store and print list of dogs retrieved
 async function showDogs () {
 
-    await sleep(5000);
+    // resets card counter to track newly displayed dogs
+    cardCounter = 0;
+
+    await sleep(3000);
+    myDogs = []; // resets the array of dogs
 
     // loops through json data retrieved
     for (let i in json_dogs_array.animals) {
-        // stores each dog's information
-        let dogName = json_dogs_array.animals[i].name;
-        let dogID = json_dogs_array.animals[i].id;
-        let dogAge = json_dogs_array.animals[i].age;
-        let dogGender = json_dogs_array.animals[i].gender;
-        let dogPrimBreed = json_dogs_array.animals[i].breeds.primary;
-        let dogSecBreed = json_dogs_array.animals[i].breeds.secondary;
-        let dogDistance = json_dogs_array.animals[i].distance;
-        let dogPhoto = json_dogs_array.animals[i].primary_photo_cropped.full;
-        let dogLink = json_dogs_array.animals[i].url;
-        
-        // creates dog object to parse relevant information
-        let newDog = new Dog(dogName, dogID, dogAge, dogGender, dogPrimBreed, dogSecBreed, dogDistance, dogPhoto, dogLink);
+        // only pushes dogs with a photo
+        if (json_dogs_array.animals[i].photos.length > 0) {
+            // stores each dog's information
+            let dogName = json_dogs_array.animals[i].name;
+            let dogID = json_dogs_array.animals[i].id;
+            let dogAge = json_dogs_array.animals[i].age;
+            let dogGender = json_dogs_array.animals[i].gender;
+            let dogPrimBreed = json_dogs_array.animals[i].breeds.primary;
+            let dogSecBreed = json_dogs_array.animals[i].breeds.secondary;
+            let dogDistance = Math.round(json_dogs_array.animals[i].distance);
+            let dogLink = json_dogs_array.animals[i].url;
+            let dogPhoto = json_dogs_array.animals[i].primary_photo_cropped.full;
 
-        // pushes the dog object into our dog array
-        myDogs.push(newDog);
+            // creates dog object to parse relevant information
+            let newDog = new Dog(dogName, dogID, dogAge, dogGender, dogPrimBreed, dogSecBreed, dogDistance, dogPhoto, dogLink);
+
+            // pushes the dog object into our dog array
+            myDogs.push(newDog);
+        }
     }
     // prints array of dogs retrieved
     console.log(myDogs);
@@ -141,48 +156,126 @@ async function showDogs () {
     showDogsOnPage();
 }
 
-// function to add values to a list element on the page
-const addToList = {
-    appendToList: (list, value) => {
-        const li = document.createElement("li");
-        li.appendChild(document.createTextNode(value));
-        list.appendChild(li);
+function dogCard(index) {
+    // grabs dog info from the indexed dog
+    let dogName = myDogs[index].name;
+    let dogID = myDogs[index].id;
+    let dogAge = myDogs[index].age;
+    let dogGender = myDogs[index].gender;
+    let dogBreed = myDogs[index].primaryBreed;
+    let dogDistance = myDogs[index].distance;
+    let dogPhoto = myDogs[index].photo;
+
+    let selectDiv = 'card-' + index; // selects dog card to display info on
+    const currentCard = document.getElementById(selectDiv); // gets element id from the page
+
+    // appends dog photo and name to card
+    addToCardPhoto.appendToImg(currentCard, dogPhoto);
+    addToCardName.appendToHeader(currentCard, dogName);
+    //(currentCard, dogID) maybe add function to append hidden dogID
+    
+    // checks if dog is mixed breed then appends all dog info to the card
+    if (myDogs[index].secondaryBreed != null) {
+        let dogBreedSec = myDogs[index].secondaryBreed;
+        addToCardInfo.appendToList(currentCard, dogAge, dogGender, dogBreed, dogDistance, dogBreedSec); 
+    }
+    else addToCardInfo.appendToList(currentCard, dogAge, dogGender, dogBreed, dogDistance);
+}
+
+// function to dynamically add dog info to a card
+const addToCardInfo = {
+    appendToList: (card, age, gender, breed, distance, breedSec) => {
+        const p = document.createElement('p');
+        const br = document.createElement('br');
+        p.appendChild(document.createTextNode('Age: ' + age));
+        p.appendChild(document.createElement('br'))
+        p.appendChild(document.createTextNode('Gender: ' + gender));
+        p.appendChild(document.createElement('br'))
+        if (breedSec != null) p.appendChild(document.createTextNode('Breeds: ' + breed + ', ' + breedSec));
+        else p.appendChild(document.createTextNode('Breed: ' + breed));
+        p.appendChild(document.createElement('br'))
+        p.appendChild(document.createTextNode('Distance: ' + distance + ' miles away'));
+        card.appendChild(p);
     }
 }
 
-function testDisplay() {
-    let dogName = myDogs[0].name
-    let dogPhoto = myDogs[0].photo;
-    //const dogDisplay = document.getElementById('testName'); // gets element id from the page
-    //addToList.appendToList(myList, listDog); // appends the value to the element 
-    document.getElementById('testName').innerHTML = dogName;
-    document.getElementById('testPhoto').src = dogPhoto; // changes source url value for the dog card picture
+// function to add the name of the dog in a h3 tag with class="name"
+const addToCardName = {
+    appendToHeader: (header, value) => {
+        const h3 = document.createElement('h3');
+        h3.setAttribute('class', 'name');
+        h3.appendChild(document.createTextNode(value));
+        header.appendChild(h3);
+    }
 }
 
+// function to dynamically add the picutre of the dog in an img element
+const addToCardPhoto = {
+    appendToImg: (photo, value) => {
+        const img = document.createElement('img');
+        img.src = value;
+        photo.appendChild(img);
+    }
+}
+
+// function to add elements to a list
+const addToList = {
+    appendToList: (list, name, link, image) => {
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode(name));
+    list.appendChild(li);
+    const img = document.createElement('img');
+    img.setAttribute('class', 'saved-img');
+    img.src = image;
+    list.appendChild(img);
+    const a = document.createElement('a');
+    a.setAttribute('href', link);
+    a.appendChild(document.createTextNode('Adoption Page'));
+    list.appendChild(a);
+    }
+}
+
+// function to dynamically create and display cards for each dog in the array
 function showDogsOnPage() {
-    //let listDogName = myDogs[0].name;
-    let listDogAge = myDogs[0].age;
-    let listDogGender = myDogs[0].gender;
-    let listDogBreed = myDogs[0].primaryBreed;
-    let listDogDistance = myDogs[0].distance;
-    //let listDogPhoto = myDogs[0].photo;
-    //let listDogUrl = myDogs[0].link;
-    const myList = document.getElementById('testDisplaying'); // gets element id from the page
-    //const myList2 = document.getElementById('testName');
-    addToList.appendToList(myList, listDogAge); // appends the value to the element
-    addToList.appendToList(myList, listDogBreed);
-    addToList.appendToList(myList, listDogGender);
-    addToList.appendToList(myList, listDogDistance);
-    //addToList.appendToList(myList, listDogPhoto);
-    //addToList.appendToList(myList, listDogUrl);
-
-    testDisplay();
+    resetCards();
+    for (let i = 0; i < myDogs.length; i++) {
+        dogCard(i);
+    }
 }
 
-// placeholder main function
-getAccessToken();
-getDogList();
-showDogs();
+// fucntion to reset dog cards
+function resetCards() {
+    for (let i = 0; i < 20; i++) {
+        let selectDiv = 'card-' + i; // selects dog card to display info on
+        console.log(selectDiv);
+        const currentCard = document.getElementById(selectDiv); // gets element id from the page
+        currentCard.innerHTML = ""; // clears the dog card before displaying info
+        currentCard.className = "bingo--card";
+        initCards();
+    }
+}
+
+
+function showSavedDogs() {
+    const savedListDisplay = document.getElementById('savedDogsDisplay');
+    index = savedPets.length - 1;
+    let likedDogName = savedPets[index].name;
+    let likedDogLink = savedPets[index].link;
+    let likedDogPhoto = savedPets[index].photo;
+    addToList.appendToList(savedListDisplay, likedDogName, likedDogLink, likedDogPhoto);
+}
+
+
+
+// apply filters button event takes inputs and makes new API request with query parameters
+document.getElementById('apply').addEventListener('click', function () {
+    let breedFilter = document.getElementById('breeds').value;
+    let genderFilter = document.getElementById('gender').value;
+    let ageFilter = document.getElementById('age').value;
+    let locationFilter = document.getElementById('location').value;
+    // runs the search function
+    searchDogs(ageFilter, breedFilter, genderFilter, locationFilter);
+});
 
 
 // Now comes the code that must wait to run until the document is fully loaded
@@ -190,7 +283,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //EventListener here shows a hidden menu
     //If the inventory menu is equal to edit then show the avalable filters
     invItems.addEventListener("change", function (event) {
-        console.log("invItem = " + invItems.options[invItems.selectedIndex].value);
         document.getElementById("editoptions").style.display = "none";
 
         if (invItems.options[invItems.selectedIndex].value == "edit") {
@@ -198,19 +290,27 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     });
 
+    // love button event saves dog card to list to display on another page
     document.getElementById("love").addEventListener("click", function() {
-        var selectedDog = document.getElementById("dogId");
+        let selectedDog = document.getElementsByClassName("name");
+        let firstdog = selectedDog[cardCounter].innerHTML;
         for (i = 0; i < myDogs.length; i++) {
-            if (selectedDog === myDogs[i].ID) {
+            if (firstdog === myDogs[i].name) {
                 savedPets.push(myDogs[i]);
+                showSavedDogs();
                 break;
             }
         }
+        cardCounter++;
         console.log(savedPets);
     });
 
-    document.getElementById("buttonDelete").addEventListener("click", function () {
+    // nope button event increments counter
+    document.getElementById("nope").addEventListener("click", function() {
+        cardCounter++;
+    });
 
+    document.getElementById("buttonDelete").addEventListener("click", function () {
         var ID = document.getElementById("deleteID").value;
         $.ajax({
             type: "DELETE",
@@ -229,6 +329,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $(document).on('pagebeforeshow', '#Show', function () {
         UpdateDisplay();
     });
+
 });
 
 'use strict';
@@ -249,8 +350,6 @@ function initCards(card, index) {
 
     bingoContainer.classList.add('loaded');
 }
-
-initCards();
 
 allCards.forEach(function (el) {
     var hammertime = new Hammer(el);
@@ -286,6 +385,7 @@ allCards.forEach(function (el) {
     if (keep) {
         event.target.style.transform = '';
     } else {
+        console.log(savedPets);
         var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
         var toX = event.deltaX > 0 ? endX : -endX;
         var endY = Math.abs(event.velocityY) * moveOutWidth;
@@ -294,6 +394,22 @@ allCards.forEach(function (el) {
         var yMulti = event.deltaY / 80;
         var rotate = xMulti * yMulti;
 
+        if(event.deltaX > 0) {
+            console.log('event to like');
+            let selectedDog = document.getElementsByClassName("name");
+            let firstdog = selectedDog[cardCounter].innerHTML;
+            for (i = 0; i < myDogs.length; i++) {
+                if (firstdog === myDogs[i].name) {
+                    savedPets.push(myDogs[i]);
+                    showSavedDogs();
+                    break;
+                }
+            }
+        }
+        else if (event.deltaX < 0) {
+            console.log('event to dislike');
+        }
+        cardCounter++;
         event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
         initCards();
     }
@@ -313,8 +429,10 @@ function createButtonListener(love) {
 
     if (love) {
         card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
+        console.log('loved dog. saving to list');
     } else {
         card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
+        console.log('disliked dog.');
     }
 
     initCards();
@@ -328,4 +446,8 @@ var loveListener = createButtonListener(true);
 
 nope.addEventListener('click', nopeListener);
 love.addEventListener('click', loveListener);
-    
+
+// placeholder main function
+getAccessToken();
+getDogList();
+initCards();

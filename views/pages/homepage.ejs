@@ -9,6 +9,7 @@
    <link rel="stylesheet" href="style.css" />
    <script src="https://code.jquery.com/jquery-1.8.2.min.js"> </script>
    <script src="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+   <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
@@ -63,9 +64,9 @@
       <div data-role="content" data-theme='c'>
          <div style="text-align:center">
             <h2>Saved Dogs</h2>
-            Keep track of your saved dogs here! 
+            Keep track of your saved dogs here!
             <br><br><br>
-            <ul data-role="listview">
+            <ul data-role="listview" id="savedDogsDisplay">
                <li><img src="/images/puppypic2.png"> Lola</li>
                <br>
                <li><img src="/images/images-removebg-preview.png"> Bear</li>
@@ -155,49 +156,26 @@
          </div>
 
          <div class="bingo--cards">
-
-            <div class="bingo--card">
-               <img id="testPhoto" src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-lead-1587757081.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*">
-               <h3 id="testName">Molly</h3>
-               <ul id="testDisplaying">
-
-               </ul>
-
-            </div>
-            <div class="bingo--card">
-               <img
-                  src="https://www.washingtonpost.com/resizer/uwlkeOwC_3JqSUXeH8ZP81cHx3I=/arc-anglerfish-washpost-prod-washpost/public/HB4AT3D3IMI6TMPTWIZ74WAR54.jpg">
-               <h3>Piper</h3>
-               <p>Age: 8 years<br>
-                  Gender: Male<br>
-                  Breed: Mixed<br>
-                  Location: Seattle</p>
-            </div>
-            <div class="bingo--card">
-               <img src="https://www.cesarsway.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-31-at-2.11.21-PM.png">
-               <h3>Woody</h3>
-               <p>Age: 12 years<br>
-                  Gender: Male<br>
-                  Breed: Golden Retriever<br>
-                  Location: Bellevue</p>
-            </div>
-            <div class="bingo--card">
-               <img
-                  src="https://media1.popsugar-assets.com/files/thumbor/QYcQ17h-c7xh-evZHmaGSGI1l-U/0x159:2003x2162/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/08/07/875/n/24155406/9ffb00255d4b2e079b0b23.01360060_/i/Cute-Pictures-German-Shepherd-Puppies.jpg">
-               <h3>Lily</h3>
-               <p>Age: 12 weeks<br>
-                  Gender: Female<br>
-                  Breed: German Shepherd<br>
-                  Location: Bellevue</p>
-            </div>
-            <div class="bingo--card">
-               <img src="https://www.pitbullinfo.org/uploads/7/8/9/7/7897520/pitbull-dog-1_3.jpg">
-               <h3>Buddy</h3>
-               <p>Age: 3 years<br>
-                  Gender: Male<br>
-                  Breed: Pit Bull<br>
-                  Location: Redmond</p>
-            </div>
+            <div class="bingo--card" id="card-0"></div>
+            <div class="bingo--card" id="card-1"></div>
+            <div class="bingo--card" id="card-2"></div>
+            <div class="bingo--card" id="card-3"></div>
+            <div class="bingo--card" id="card-4"></div>
+            <div class="bingo--card" id="card-5"></div>
+            <div class="bingo--card" id="card-6"></div>
+            <div class="bingo--card" id="card-7"></div>
+            <div class="bingo--card" id="card-8"></div>
+            <div class="bingo--card" id="card-9"></div>
+            <div class="bingo--card" id="card-10"></div>
+            <div class="bingo--card" id="card-11"></div>
+            <div class="bingo--card" id="card-12"></div>                     
+            <div class="bingo--card" id="card-13"></div>                     
+            <div class="bingo--card" id="card-14"></div>                     
+            <div class="bingo--card" id="card-15"></div>                     
+            <div class="bingo--card" id="card-16"></div>                     
+            <div class="bingo--card" id="card-17"></div>                     
+            <div class="bingo--card" id="card-18"></div>                     
+            <div class="bingo--card" id="card-19"></div>                     
             <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
          </div>
 
