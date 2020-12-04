@@ -72,7 +72,6 @@ async function getDogList() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status == 200) {
         json_dogs_array = (JSON.parse(xhr.responseText)); // if request was successful, saves retrieved json data to array
-        console.log(json_dogs_array.animals);
         }
     };
 
@@ -100,8 +99,6 @@ async function searchDogs(age, breed, gender, location) {
     }
     
     url = url + breedSearch + genderSearch + ageSearch + locationSearch;
-
-    console.log(url);
 
     let xhr = new XMLHttpRequest(); // object to send requests
     xhr.open("GET", url); // request method
@@ -150,8 +147,6 @@ async function showDogs () {
             myDogs.push(newDog);
         }
     }
-    // prints array of dogs retrieved
-    console.log(myDogs);
     // adds dogs to the list on the page
     showDogsOnPage();
 }
@@ -221,17 +216,22 @@ const addToCardPhoto = {
 // function to add elements to a list
 const addToList = {
     appendToList: (list, name, link, image) => {
-    const li = document.createElement("li");
-    li.appendChild(document.createTextNode(name));
-    list.appendChild(li);
-    const img = document.createElement('img');
-    img.setAttribute('class', 'saved-img');
-    img.src = image;
-    list.appendChild(img);
-    const a = document.createElement('a');
-    a.setAttribute('href', link);
-    a.appendChild(document.createTextNode('Adoption Page'));
-    list.appendChild(a);
+
+        const a = document.createElement('a');
+        a.setAttribute('href', link);
+
+        const img = document.createElement('img');
+        img.setAttribute('class', 'saved-img');
+        img.src = image;
+
+        const li = document.createElement('li');
+        li.append(a);
+        li.append(img);
+        li.appendChild(document.createTextNode(name));
+        li.setAttribute('href', link);
+        list.appendChild(li);
+
+        //list.appendChild(img);
     }
 }
 
@@ -247,7 +247,6 @@ function showDogsOnPage() {
 function resetCards() {
     for (let i = 0; i < 20; i++) {
         let selectDiv = 'card-' + i; // selects dog card to display info on
-        console.log(selectDiv);
         const currentCard = document.getElementById(selectDiv); // gets element id from the page
         currentCard.innerHTML = ""; // clears the dog card before displaying info
         currentCard.className = "bingo--card";
@@ -302,7 +301,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         }
         cardCounter++;
-        console.log(savedPets);
     });
 
     // nope button event increments counter
@@ -385,7 +383,6 @@ allCards.forEach(function (el) {
     if (keep) {
         event.target.style.transform = '';
     } else {
-        console.log(savedPets);
         var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
         var toX = event.deltaX > 0 ? endX : -endX;
         var endY = Math.abs(event.velocityY) * moveOutWidth;
@@ -395,7 +392,6 @@ allCards.forEach(function (el) {
         var rotate = xMulti * yMulti;
 
         if(event.deltaX > 0) {
-            console.log('event to like');
             let selectedDog = document.getElementsByClassName("name");
             let firstdog = selectedDog[cardCounter].innerHTML;
             for (i = 0; i < myDogs.length; i++) {
@@ -405,9 +401,6 @@ allCards.forEach(function (el) {
                     break;
                 }
             }
-        }
-        else if (event.deltaX < 0) {
-            console.log('event to dislike');
         }
         cardCounter++;
         event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
@@ -429,10 +422,8 @@ function createButtonListener(love) {
 
     if (love) {
         card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
-        console.log('loved dog. saving to list');
     } else {
         card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
-        console.log('disliked dog.');
     }
 
     initCards();
