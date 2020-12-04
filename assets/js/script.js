@@ -167,9 +167,7 @@ function dogCard(index) {
     let dogPhoto = myDogs[index].photo;
 
     let selectDiv = 'card-' + index; // selects dog card to display info on
-    console.log(selectDiv);
     const currentCard = document.getElementById(selectDiv); // gets element id from the page
-    currentCard.innerHTML = ""; // clears the dog card before displaying info
 
     // appends dog photo and name to card
     addToCardPhoto.appendToImg(currentCard, dogPhoto);
@@ -220,28 +218,62 @@ const addToCardPhoto = {
     }
 }
 
+// function to add elements to a list
+const addToList = {
+    appendToList: (list, name, link, image) => {
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode(name));
+    list.appendChild(li);
+    const img = document.createElement('img');
+    img.setAttribute('class', 'saved-img');
+    img.src = image;
+    list.appendChild(img);
+    const a = document.createElement('a');
+    a.setAttribute('href', link);
+    a.appendChild(document.createTextNode('Adoption Page'));
+    list.appendChild(a);
+    }
+}
+
 // function to dynamically create and display cards for each dog in the array
 function showDogsOnPage() {
+    resetCards();
     for (let i = 0; i < myDogs.length; i++) {
         dogCard(i);
     }
 }
 
+// fucntion to reset dog cards
+function resetCards() {
+    for (let i = 0; i < 20; i++) {
+        let selectDiv = 'card-' + i; // selects dog card to display info on
+        console.log(selectDiv);
+        const currentCard = document.getElementById(selectDiv); // gets element id from the page
+        currentCard.innerHTML = ""; // clears the dog card before displaying info
+        currentCard.className = "bingo--card";
+        initCards();
+    }
+}
+
+
+function showSavedDogs() {
+    const savedListDisplay = document.getElementById('savedDogsDisplay');
+    index = savedPets.length - 1;
+    let likedDogName = savedPets[index].name;
+    let likedDogLink = savedPets[index].link;
+    let likedDogPhoto = savedPets[index].photo;
+    addToList.appendToList(savedListDisplay, likedDogName, likedDogLink, likedDogPhoto);
+}
 
 
 
+// apply filters button event takes inputs and makes new API request with query parameters
 document.getElementById('apply').addEventListener('click', function () {
-
     let breedFilter = document.getElementById('breeds').value;
     let genderFilter = document.getElementById('gender').value;
     let ageFilter = document.getElementById('age').value;
     let locationFilter = document.getElementById('location').value;
-  
-    console.log(breedFilter);
-    console.log(genderFilter);
-    console.log(ageFilter);
-    console.log(locationFilter);
-  
+    // runs the search function
     searchDogs(ageFilter, breedFilter, genderFilter, locationFilter);
 });
 
@@ -258,34 +290,41 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     });
 
+    // love button event saves dog card to list to display on another page
     document.getElementById("love").addEventListener("click", function() {
         let selectedDog = document.getElementsByClassName("name");
-        let firstdog = selectedDog[0].innerHTML;
+        let firstdog = selectedDog[cardCounter].innerHTML;
         for (i = 0; i < myDogs.length; i++) {
             if (firstdog === myDogs[i].name) {
                 savedPets.push(myDogs[i]);
+                showSavedDogs();
                 break;
             }
         }
+        cardCounter++;
         console.log(savedPets);
     });
 
-    // document.getElementById("buttonDelete").addEventListener("click", function () {
+    // nope button event increments counter
+    document.getElementById("nope").addEventListener("click", function() {
+        cardCounter++;
+    });
 
-    //     var ID = document.getElementById("deleteID").value;
-    //     $.ajax({
-    //         type: "DELETE",
-    //         url: "/DeleteItem/" + ID,
-    //         success: function (result) {
-    //         console.log(result);
-    //         document.location.href = "index.html#Show";  // go to this page to show item was deleted
-    //         },
-    //         error: function (xhr, textStatus, errorThrown) {
-    //         console.log('Error in Operation');
-    //         alert("Server could not delete Note with ID " + ID)
-    //         }
-    //     });
-    // });
+    document.getElementById("buttonDelete").addEventListener("click", function () {
+        var ID = document.getElementById("deleteID").value;
+        $.ajax({
+            type: "DELETE",
+            url: "/DeleteItem/" + ID,
+            success: function (result) {
+            console.log(result);
+            document.location.href = "index.html#Show";  // go to this page to show item was deleted
+            },
+            error: function (xhr, textStatus, errorThrown) {
+            console.log('Error in Operation');
+            alert("Server could not delete Note with ID " + ID)
+            }
+        });
+    });
 
     $(document).on('pagebeforeshow', '#Show', function () {
         UpdateDisplay();
@@ -346,6 +385,7 @@ allCards.forEach(function (el) {
     if (keep) {
         event.target.style.transform = '';
     } else {
+        console.log(savedPets);
         var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
         var toX = event.deltaX > 0 ? endX : -endX;
         var endY = Math.abs(event.velocityY) * moveOutWidth;
@@ -354,6 +394,22 @@ allCards.forEach(function (el) {
         var yMulti = event.deltaY / 80;
         var rotate = xMulti * yMulti;
 
+        if(event.deltaX > 0) {
+            console.log('event to like');
+            let selectedDog = document.getElementsByClassName("name");
+            let firstdog = selectedDog[cardCounter].innerHTML;
+            for (i = 0; i < myDogs.length; i++) {
+                if (firstdog === myDogs[i].name) {
+                    savedPets.push(myDogs[i]);
+                    showSavedDogs();
+                    break;
+                }
+            }
+        }
+        else if (event.deltaX < 0) {
+            console.log('event to dislike');
+        }
+        cardCounter++;
         event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
         initCards();
     }
