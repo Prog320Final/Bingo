@@ -98,6 +98,7 @@ async function searchDogs(age, breed, gender, location) {
         locationSearch = "&location=98102";
     }
     
+    // appends search parameters to query url
     url = url + breedSearch + genderSearch + ageSearch + locationSearch;
 
     let xhr = new XMLHttpRequest(); // object to send requests
@@ -254,7 +255,7 @@ function resetCards() {
     }
 }
 
-
+// function to add and display saved dogs
 function showSavedDogs() {
     const savedListDisplay = document.getElementById('savedDogsDisplay');
     index = savedPets.length - 1;
@@ -263,8 +264,6 @@ function showSavedDogs() {
     let likedDogPhoto = savedPets[index].photo;
     addToList.appendToList(savedListDisplay, likedDogName, likedDogLink, likedDogPhoto);
 }
-
-
 
 // apply filters button event takes inputs and makes new API request with query parameters
 document.getElementById('apply').addEventListener('click', function () {
@@ -275,7 +274,6 @@ document.getElementById('apply').addEventListener('click', function () {
     // runs the search function
     searchDogs(ageFilter, breedFilter, genderFilter, locationFilter);
 });
-
 
 // Now comes the code that must wait to run until the document is fully loaded
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -324,22 +322,31 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     });
 
+    // displays saved dogs page
     $(document).on('pagebeforeshow', '#Show', function () {
         UpdateDisplay();
     });
 
 });
 
-'use strict';
+/* 
+** The following code was retrieved and modified for our app from https://codepen.io/RobVermeer/pen/japZpY
+** The code uses JQuery provides cards with information and pictures dispalyed and uses webkit to implement a swiping functionality to the cards
+** We modified the code to perform actions such as saving dogs to a list when a user swipes or clicks a 'like' button
+** We also modified the cards using JQuery to make dynamic new cards that display new card information returned from a search query
+*/
 
+'use strict';
+// variables for cards and button elements
 var bingoContainer = document.querySelector('.bingo');
 var allCards = document.querySelectorAll('.bingo--card');
 var nope = document.getElementById('nope');
 var love = document.getElementById('love');
 
+// initializes the cards
 function initCards(card, index) {
+    // displays cards that have not been removed
     var newCards = document.querySelectorAll('.bingo--card:not(.removed)');
-
     newCards.forEach(function (card, index) {
     card.style.zIndex = allCards.length - index;
     card.style.transform = 'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';
@@ -349,9 +356,11 @@ function initCards(card, index) {
     bingoContainer.classList.add('loaded');
 }
 
+// creates event handlers and webkit trackers for each card object
 allCards.forEach(function (el) {
     var hammertime = new Hammer(el);
 
+    // tracks when a card is being moved
     hammertime.on('pan', function (event) {
     el.classList.add('moving');
     });
@@ -360,13 +369,15 @@ allCards.forEach(function (el) {
     if (event.deltaX === 0) return;
     if (event.center.x === 0 && event.center.y === 0) return;
 
+    // toggles events based on the direction the card is moved
     bingoContainer.classList.toggle('bingo_love', event.deltaX > 0);
     bingoContainer.classList.toggle('bingo_nope', event.deltaX < 0);
 
     var xMulti = event.deltaX * 0.03;
     var yMulti = event.deltaY / 80;
     var rotate = xMulti * yMulti;
-
+    
+    // uses webkit.transform to move the card
     event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
     });
 
@@ -375,14 +386,18 @@ allCards.forEach(function (el) {
     bingoContainer.classList.remove('bingo_love');
     bingoContainer.classList.remove('bingo_nope');
 
+    // variables track how far card must be displaced to be removed
     var moveOutWidth = document.body.clientWidth;
     var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
-
+    
+    // removes the card if it was moved far enough
     event.target.classList.toggle('removed', !keep);
 
     if (keep) {
+        // resets the card to its original position
         event.target.style.transform = '';
     } else {
+        // displaces the card
         var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
         var toX = event.deltaX > 0 ? endX : -endX;
         var endY = Math.abs(event.velocityY) * moveOutWidth;
@@ -391,7 +406,9 @@ allCards.forEach(function (el) {
         var yMulti = event.deltaY / 80;
         var rotate = xMulti * yMulti;
 
+        // if displacement was to the right, then it is considered a 'like' swipe
         if(event.deltaX > 0) {
+            // gets the card dog object information and pushes it to a saved dogs list
             let selectedDog = document.getElementsByClassName("name");
             let firstdog = selectedDog[cardCounter].innerHTML;
             for (i = 0; i < myDogs.length; i++) {
@@ -402,6 +419,8 @@ allCards.forEach(function (el) {
                 }
             }
         }
+        
+        // increments card tracker whenever a card is displaced and not reset
         cardCounter++;
         event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
         initCards();
@@ -409,6 +428,8 @@ allCards.forEach(function (el) {
     });
 });
 
+// button listener for liking a dog
+// if user likes the dog, the card is moved and saved to the list
 function createButtonListener(love) {
     return function (event) {
     var cards = document.querySelectorAll('.bingo--card:not(.removed)');
@@ -419,7 +440,6 @@ function createButtonListener(love) {
     var card = cards[0];
 
     card.classList.add('removed');
-
     if (love) {
         card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
     } else {
@@ -434,11 +454,14 @@ function createButtonListener(love) {
 
 var nopeListener = createButtonListener(false);
 var loveListener = createButtonListener(true);
-
 nope.addEventListener('click', nopeListener);
 love.addEventListener('click', loveListener);
 
-// placeholder main function
-getAccessToken();
-getDogList();
-initCards();
+// main method function
+function main() {
+    getAccessToken(); // gets the initial access token required for making requests
+    getDogList(); // gets initial default list of dogs
+    initCards(); // initializes the dog cards
+}
+
+main();
